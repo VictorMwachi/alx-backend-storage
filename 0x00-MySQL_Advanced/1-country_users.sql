@@ -8,7 +8,7 @@
 --If the table already exists, your script should not fail
 DROP TABLE IF EXISTS users;
 CREATE TABLE IF NOT EXISTS users(
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id INT NOT NULL AUTO_INCREMENT,
 	email VARCHAR(255) NOT NULL UNIQUE,
 	name VARCHAR(255),
-	country VARCHAR(2) NOT NULL DEFAULT='US'); 
+	country ENUM('US','CO','TN') NOT NULL);
