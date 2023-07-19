@@ -21,5 +21,5 @@ class Cache:
         store the input data in Redis using the random key and
         return the key."""
         key = str(uuid.uuid4())
-        self._resdis.set(key, data)
+        self._redis.set(key, data)
         return key
