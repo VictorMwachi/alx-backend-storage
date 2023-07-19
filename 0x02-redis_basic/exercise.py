@@ -4,7 +4,24 @@
 """
 import redis
 import uuid
-from typing import Union, Callable
+from functools import wraps
+from typing import Union, Callable, Any
+
+
+def count_calls(method: Callable) -> Callable:
+    """
+    Create and return function that increments the count for that
+    key every time the method is called and returns the value
+    returned by the original method.
+    """
+    @wraps(method)
+    def caller(self, *args, **kwargs) -> Any:
+        """calls the given method after incrementing its call counter.
+        """
+        if isinstance(self._redis, redis.Redis):
+            self._redis.incr(method.__qualname__)
+            return method(self, *args, **kwargs)
+        return caller
 
 
 class Cache:
