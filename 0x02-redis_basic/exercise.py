@@ -18,7 +18,7 @@ def count_calls(method: Callable) -> Callable:
     def caller(self, *args, **kwargs) -> Any:
         """calls the given method after incrementing its call counter.
         """
-        if isinstance(self._redis, redis.Redis):
+        if isinstance(self._redis, redis.Redis()):
             self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
     return caller
